@@ -1,13 +1,15 @@
 
 // global constants and variables
 const MAX_BAR_HEIGHT = 500;
-let deviceWidth = $(".barsContainer").width();
-let numBars = 100;
-let barWidth = (deviceWidth / numBars);
-let arr = [];
+var deviceWidth = $(".barsContainer").width();
+var numBars = 100;
+var barWidth = (deviceWidth / numBars);
+var arr = [];
 
 
 displayRandomBars();
+// insertionSort();
+
 
 
 // fills random values in arr
@@ -50,12 +52,14 @@ function displayRandomBars() {
     renderBars();
 }
 
+// 37.67s - bubble(100)
+// 15.29 - insertion(100);
 
 // Event Listeners
 
 // click listener to generate random array
 $("#numGenerator").on("click", displayRandomBars);
-$("#sortBtn").on("click", bubbleSort);
+$("#sortBtn").on("click", insertionSort);
 
 // changes the number of bars according to the given input
 $("#barCount").on("change", () => {
@@ -108,4 +112,22 @@ async function animateBars() {
     }
     await timer(600);
     renderBars();
+}
+
+async function insertionSort() {
+    var x = 0;
+    var j = 0;
+    for (var i = 1; i < numBars; ++i) {
+        x = arr[i];
+        j = i;
+        while (x > arr[j - 1] && (j > 0)) {
+            arr[j] = arr[j - 1];
+            arr[j-1] = x;
+            j--;
+            await timer(0);
+            renderBars(i, j);
+        }
+        arr[j] = x;
+    }
+    animateBars();
 }
