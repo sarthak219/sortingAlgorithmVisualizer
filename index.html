@@ -28,18 +28,26 @@
                 <p>Number of bars: <span id="numBarLabel">100</span></p>
             </div>
 
-            <div class="dropdown btn">
+            <!-- <div class="dropdown btn">
                 <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Select Sorting Method
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Merge Sort</a></li>
+                    <li><a class="dropdown-item active" href="#">Merge Sort</a></li>
                     <li><a class="dropdown-item" href="#">Bubble Sort</a></li>
                     <li><a class="dropdown-item" href="#">Insertion Sort</a></li>
                 </ul>
-            </div>
-            <button id="sortBtn" class="btn btn-outline-light">Sort</button>
+            </div> -->
+
+            <select id="sortType" class="form-select btn btn-outline-light" aria-label="Default select example" style="width: auto;">
+                <option selected>Open this select menu</option>
+                <option value="bubble">Bubble Sort</option>
+                <option value="insertion">Insertion Sort</option>
+                <option value="selection">Selection Sort</option>
+            </select>
+
+            <button id="sortBtn" class="btn btn-light">Sort</button>
         </div>
     </div>
     <div class="barsContainer"></div>

@@ -62,6 +62,14 @@ h1#title {
     background-color: red;
 }
 
+.yellowBar {
+    background-color: yellow;
+}
+
+.greenBar {
+    background-color: rgb(143, 255, 143);
+}
+
 .slider {
     width: 200px;
 }
@@ -69,6 +77,10 @@ h1#title {
 label {
     color: white;
     padding: 10px;
+}
+
+select .form-select {
+    width: auto;
 }
 
 @media Screen and (max-width: 500px) {
