@@ -4,7 +4,7 @@ const MAX_BAR_HEIGHT = 500;
 const RED = "red";
 const GREEN = "green";
 const YELLOW = "yellow";
-var deviceWidth = $(".barsContainer").width();
+var deviceWidth = $(".barsContainer").width();  // since the width fo the bars container is always 100%;
 var numBars = 100;
 var barWidth = (deviceWidth / numBars);
 var arr = [];
@@ -32,7 +32,7 @@ async function renderBars() {
 }
 
 // renders the bars on the screen with height corresponding to values in arr, 
-// makes the bars at position a and b red
+// changes colour of the bars at position a, b and c to col1, col2 and col3 respectively
 async function renderColouredBars(a, b, c, col1, col2, col3) {
     let str = "";
     for (var i = 0; i < numBars; ++i) {
@@ -52,7 +52,7 @@ async function renderColouredBars(a, b, c, col1, col2, col3) {
 
 
 // renders the bars on the screen with height corresponding to values in arr, 
-// makes the bars at position a and b red
+// changes colour of the bars at position a and b to red
 async function render2RedBars(a, b) {
     let str = "";
     for (var i = 0; i < numBars; ++i) {
@@ -72,9 +72,6 @@ function displayRandomBars() {
     populateArray();
     renderBars();
 }
-
-// 37.67s - bubble(100)
-// 15.29 - insertion(100);
 
 /////////////////////////////////// Event Listeners  ///////////////////////////////////
 
@@ -115,23 +112,38 @@ $(window).resize(function () {
 
 // renders all the bars in red colour then changes them back to white after 600ms
 async function animateBars() {
+    let str = "";
     for (var i = 0; i < numBars; ++i) {
-        let str = "";
-        for (let j = 0; j <= i; ++j) {
-            let barHeight = arr[j];
-            str += `<div class="bar redBar" style="width:${barWidth}px; height: ${barHeight}px "></div>`;
-            $(".barsContainer").html(str);
-        }
-        for (let k = i + 1; k < numBars; ++k) {
-            let barHeight = arr[k];
-            str += `<div class="bar" style="width:${barWidth}px; height: ${barHeight}px "></div>`;
-            $(".barsContainer").html(str);
-        }
+        let barHeight = arr[i];
+        str += `<div class="bar redBar" style="width:${barWidth}px; height: ${barHeight}px "></div>`;
+        $(".barsContainer").html(str);
         await timer(0);
     }
     await timer(600);
     renderBars();
 }
+
+
+// To colour each bar red one by one
+
+// async function animateBars() {
+//     for (var i = 0; i < numBars; ++i) {
+//         let str = "";
+//         for (let j = 0; j <= i; ++j) {
+//             let barHeight = arr[j];
+//             str += `<div class="bar redBar" style="width:${barWidth}px; height: ${barHeight}px "></div>`;
+//             $(".barsContainer").html(str);
+//         }
+//         for (let k = i + 1; k < numBars; ++k) {
+//             let barHeight = arr[k];
+//             str += `<div class="bar" style="width:${barWidth}px; height: ${barHeight}px "></div>`;
+//             $(".barsContainer").html(str);
+//         }
+//         await timer(0);
+//     }
+//     await timer(600);
+//     renderBars();
+// }
 
 
 ///////////////////////////// Sorting Algorithms ////////////////////////////
@@ -173,7 +185,7 @@ async function insertionSort() {
     animateBars();
 }
 
-// sorts arr in descending order using insertion sort
+// sorts arr in descending order using selection sort
 async function selectionSort() {
     for (let i = 0; i < numBars - 1; ++i) {
         let x = i;
