@@ -11,6 +11,7 @@ var arr = [];
 
 
 displayRandomBars();
+setBarRange();
 
 
 // fills random values in arr
@@ -97,16 +98,35 @@ $("#sortBtn").on("click", () => {
 $("#barCount").on("change", () => {
     numBars = $("#barCount").val();
     $("#numBarLabel").text(numBars);
-    // $("#numBarLabel").html();
     barWidth = (deviceWidth / numBars);
     displayRandomBars();
 });
+
+// sets the range of numBar slider according to the deviceWidth
+function setBarRange() {
+    if (deviceWidth < 912) {
+        $("#minBars").text(20);
+        $("#maxBars").text(100);
+        $("#barCount").attr("min", "20");
+        $("#barCount").attr("max", "100");
+        $("#barCount").attr("value", "50");
+        $("#numBarLabel").text($("#barCount").attr("value"));
+    } else {
+        $("#minBars").text(50);
+        $("#maxBars").text(200);
+        $("#barCount").attr("min", "50");
+        $("#barCount").attr("max", "200");
+        $("#barCount").attr("value", "100");
+        $("#numBarLabel").text($("#barCount").attr("value"));
+    }
+}
 
 // adjusts the bar widths when the screen is resized
 $(window).resize(function () {
     deviceWidth = $(".barsContainer").width();
     barWidth = (deviceWidth / numBars);
     renderBars();
+    setBarRange();
 });
 
 
