@@ -204,6 +204,12 @@ async function selectionSort() {
     animateBars();
 }
 
+
+// TODO
+function mergeSort() {
+
+}
+
 // adds delay of given milliseconds
 function timer(ms) {
     return new Promise(res => setTimeout(res, ms));
