@@ -10,8 +10,8 @@ var barWidth = (deviceWidth / numBars);
 var arr = [];
 
 
-displayRandomBars();
 setBarRange();
+displayRandomBars();
 
 
 // fills random values in arr
@@ -109,14 +109,16 @@ function setBarRange() {
         $("#maxBars").text(100);
         $("#barCount").attr("min", "20");
         $("#barCount").attr("max", "100");
-        $("#barCount").attr("value", "50");
+        numBars = 50;
+        $("#barCount").attr("value", numBars);
         $("#numBarLabel").text($("#barCount").attr("value"));
     } else {
         $("#minBars").text(50);
         $("#maxBars").text(200);
         $("#barCount").attr("min", "50");
         $("#barCount").attr("max", "200");
-        $("#barCount").attr("value", "100");
+        numBars = 100;
+        $("#barCount").attr("value", numBars);
         $("#numBarLabel").text($("#barCount").attr("value"));
     }
 }
@@ -125,8 +127,8 @@ function setBarRange() {
 $(window).resize(function () {
     deviceWidth = $(".barsContainer").width();
     barWidth = (deviceWidth / numBars);
-    renderBars();
     setBarRange();
+    renderBars();
 });
 
 
