@@ -4,10 +4,11 @@ const MAX_BAR_HEIGHT = 500;
 const RED = "red";
 const GREEN = "green";
 const YELLOW = "yellow";
-var deviceWidth = $(".barsContainer").width();  // since the width fo the bars container is always 100%;
+var deviceWidth = $(".barsContainer").width();  // since the width of the bars container is always 100%;
 var numBars = 100;
 var barWidth = (deviceWidth / numBars);
 var arr = [];
+var itmd = []; // intermediate array for merge sort
 
 
 setBarRange();
@@ -90,6 +91,9 @@ $("#sortBtn").on("click", () => {
         case "selection":
             selectionSort();
             break;
+        case "merge":
+            mergeSortWithAnimation();
+            break;
         default: alert("Please select a sorting option");
     }
 });
@@ -105,21 +109,23 @@ $("#barCount").on("change", () => {
 // sets the range of numBar slider according to the deviceWidth
 function setBarRange() {
     if (deviceWidth < 912) {
+        numBars = 50;
         $("#minBars").text(20);
         $("#maxBars").text(100);
         $("#barCount").attr("min", "20");
         $("#barCount").attr("max", "100");
-        numBars = 50;
         $("#barCount").attr("value", numBars);
         $("#numBarLabel").text($("#barCount").attr("value"));
+        barWidth = (deviceWidth / numBars);
     } else {
+        numBars = 100;
         $("#minBars").text(50);
         $("#maxBars").text(200);
         $("#barCount").attr("min", "50");
         $("#barCount").attr("max", "200");
-        numBars = 100;
         $("#barCount").attr("value", numBars);
         $("#numBarLabel").text($("#barCount").attr("value"));
+        barWidth = (deviceWidth / numBars);
     }
 }
 
@@ -195,6 +201,7 @@ async function insertionSort() {
     for (let i = 1; i < numBars; ++i) {
         let x = arr[i];
         let j = i;
+        // pushes the element at ith position backwards until a larger element is found
         while (x > arr[j - 1] && (j > 0)) {
             arr[j] = arr[j - 1];
             arr[j - 1] = x;
@@ -227,9 +234,76 @@ async function selectionSort() {
 }
 
 
-// TODO
-function mergeSort() {
+// merges 2 the arrays into one sorted array
+async function mergeArray(start, end) {
+    let mid = parseInt((start + end) >> 1);
+    let start1 = start, start2 = mid + 1
+    let end1 = mid, end2 = end
 
+    // Initial index of merged subarray
+    let index = start
+
+    while (start1 <= end1 && start2 <= end2) {
+        if (arr[start1] >= arr[start2]) {
+            itmd[index] = arr[start1]
+            index = index + 1
+            start1 = start1 + 1;
+            await timer(0)
+            render2RedBars(start1, index);
+        }
+        else if (arr[start1] < arr[start2]) {
+            itmd[index] = arr[start2]
+            index = index + 1
+            start2 = start2 + 1;
+            await timer(0)
+            render2RedBars(start2, index);
+        }
+    }
+
+    // Copy the remaining elements of
+    // arr[], if there are any
+    while (start1 <= end1) {
+        itmd[index] = arr[start1]
+        index = index + 1
+        start1 = start1 + 1;
+        await timer(0)
+        render2RedBars(start1, index);
+    }
+
+    while (start2 <= end2) {
+        itmd[index] = arr[start2]
+        index = index + 1
+        start2 = start2 + 1;
+        await timer(0)
+        render2RedBars(index, start2);
+    }
+
+    index = start
+    while (index <= end) {
+        arr[index] = itmd[index];
+        index++;
+        await timer(0)
+        render2RedBars(index, index);
+    }
+}
+
+// main mergeSort function
+async function mergeSort(start, end) {
+    if (start < end) {
+        let mid = parseInt((start + end) >> 1)
+        await mergeSort(start, mid)
+        await mergeSort(mid + 1, end)
+        await mergeArray(start, end)
+        await timer(0)
+        renderColouredBars(start, mid, end, RED, RED, RED);
+    }
+}
+
+
+// first performs the mergeSort funtion and them animates the bars
+async function mergeSortWithAnimation() {
+    await mergeSort(0, arr.length - 1);
+    animateBars();
 }
 
 // adds delay of given milliseconds
