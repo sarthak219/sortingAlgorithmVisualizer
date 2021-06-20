@@ -11,7 +11,7 @@ var arr = [];
 var itmd = []; // intermediate array for merge sort
 
 
-updateBar();
+updateSlider();
 displayRandomBars();
 
 
@@ -107,7 +107,7 @@ $("#barCount").on("change", () => {
 });
 
 // sets the range of numBar slider according to the deviceWidth
-function updateBar() {
+function updateSlider() {
     if (deviceWidth < 912) {
         setBarRanges(50, 20, 100);
     } else {
@@ -118,7 +118,7 @@ function updateBar() {
     barWidth = (deviceWidth / numBars);
 }
 
-// helper for updateBar
+// helper for updateSlider
 function setBarRanges(numOfBars, min, max) {
     numBars = numOfBars;
     $("#minBars").text(min);
@@ -148,7 +148,7 @@ async function animateBars() {
     renderBars();
 }
 
-
+// Can be used if machine is fast enough
 // To colour each bar red one by one
 
 // async function animateBars() {
