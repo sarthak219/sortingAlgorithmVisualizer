@@ -11,7 +11,7 @@ var arr = [];
 var itmd = []; // intermediate array for merge sort
 
 
-updateBarRange();
+updateBar();
 displayRandomBars();
 
 
@@ -107,33 +107,30 @@ $("#barCount").on("change", () => {
 });
 
 // sets the range of numBar slider according to the deviceWidth
-function updateBarRange() {
+function updateBar() {
     if (deviceWidth < 912) {
-        numBars = 50;
-        $("#minBars").text(20);
-        $("#maxBars").text(100);
-        $("#barCount").attr("min", "20");
-        $("#barCount").attr("max", "100");
-        $("#barCount").attr("value", numBars);
+        setBarRanges(50, 20, 100);
     } else {
-        numBars = 100;
-        $("#minBars").text(50);
-        $("#maxBars").text(200);
-        $("#barCount").attr("min", "50");
-        $("#barCount").attr("max", "200");
-        $("#barCount").attr("value", numBars);
-        // $("#numBarLabel").text($("#barCount").attr("value"));
-        // barWidth = (deviceWidth / numBars);
+        setBarRanges(100, 50, 200);
     }
+    $("#barCount").attr("value", numBars);
     $("#numBarLabel").text($("#barCount").attr("value"));
     barWidth = (deviceWidth / numBars);
+}
+
+// helper for updateBar
+function setBarRanges(numOfBars, min, max) {
+    numBars = numOfBars;
+    $("#minBars").text(min);
+    $("#maxBars").text(max);
+    $("#barCount").attr("min", String(min));
+    $("#barCount").attr("max", String(max));
 }
 
 // adjusts the bar widths when the screen is resized
 $(window).resize(function () {
     deviceWidth = $(".barsContainer").width();
     barWidth = (deviceWidth / numBars);
-    updateBarRange();
     renderBars();
 });
 
