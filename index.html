@@ -36,6 +36,13 @@
                 <p>Number of bars: <span id="numBarLabel">100</span></p>
             </div>
 
+            <div class="btn">
+                <label id="minSpeed" for="sortingSpeed">Slow</label>
+                <input id="sortingSpeed" class="slider" type="range" name="sortingSpeed" min="0" max="100" value="100">
+                <label id="maxSpeed" for="sortingSpeed">Fast</label>
+                <p>Speed: <span id="speedLabel">Fastest</span></p>
+            </div>
+
             <select id="sortType" class="form-select btn btn-outline-light" aria-label="Default select example">
                 <option selected>Select Sorting Algorithm</option>
                 <option value="bubble">Bubble Sort</option>

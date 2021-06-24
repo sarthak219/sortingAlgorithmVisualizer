@@ -7,6 +7,7 @@ const YELLOW = "yellow";
 var deviceWidth = $(".barsContainer").width();  // since the width of the bars container is always 100%;
 var numBars = 100;
 var barWidth = (deviceWidth / numBars);
+var speed = 0;
 var arr = [];
 var itmd = []; // intermediate array for merge sort
 
@@ -106,6 +107,22 @@ $("#barCount").on("change", () => {
     displayRandomBars();
 });
 
+// changes the number of bars according to the given input
+$("#sortingSpeed").on("change", () => {
+    speed = $("#sortingSpeed").attr("max") - $("#sortingSpeed").val();
+    if (speed === 100) {
+        $("#speedLabel").text("Slowest");
+    } else if (speed < 100 && speed > 80) {
+        $("#speedLabel").text("Slow");
+    } else if (speed <= 80 && speed > 40) {
+        $("#speedLabel").text("Medium");
+    } else if (speed <= 40 && speed > 0) {
+        $("#speedLabel").text("Fast");
+    } else if (speed === 0) {
+        $("#speedLabel").text("Fastest");
+    }
+});
+
 // sets the range of numBar slider according to the deviceWidth
 function updateSlider() {
     if (deviceWidth < 912) {
@@ -184,7 +201,7 @@ async function bubbleSort() {
                 t = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = t;
-                await timer(0);
+                await timer(speed);
                 render2RedBars(j, j + 1);
             }
         }
@@ -203,7 +220,7 @@ async function insertionSort() {
             arr[j] = arr[j - 1];
             arr[j - 1] = x;
             j--;
-            await timer(0);
+            await timer(speed);
             renderColouredBars(i, i, j, YELLOW, YELLOW, RED);
         }
         arr[j] = x;
@@ -220,7 +237,7 @@ async function selectionSort() {
             if (arr[j] > arr[x]) {
                 x = j;
             }
-            await timer(0);
+            await timer(speed);
             renderColouredBars(i, x, j, YELLOW, GREEN, RED);
         }
         let t = arr[x];
@@ -245,14 +262,14 @@ async function mergeArray(start, end) {
             itmd[index] = arr[start1]
             index = index + 1
             start1 = start1 + 1;
-            await timer(0)
+            await timer(speed);
             render2RedBars(start1, index);
         }
         else if (arr[start1] < arr[start2]) {
             itmd[index] = arr[start2]
             index = index + 1
             start2 = start2 + 1;
-            await timer(0)
+            await timer(speed);
             render2RedBars(start2, index);
         }
     }
@@ -263,7 +280,7 @@ async function mergeArray(start, end) {
         itmd[index] = arr[start1]
         index = index + 1
         start1 = start1 + 1;
-        await timer(0)
+        await timer(speed);
         render2RedBars(start1, index);
     }
 
@@ -271,7 +288,7 @@ async function mergeArray(start, end) {
         itmd[index] = arr[start2]
         index = index + 1
         start2 = start2 + 1;
-        await timer(0)
+        await timer(speed);
         render2RedBars(index, start2);
     }
 
@@ -279,7 +296,7 @@ async function mergeArray(start, end) {
     while (index <= end) {
         arr[index] = itmd[index];
         index++;
-        await timer(0)
+        await timer(speed);
         render2RedBars(index, index);
     }
 }
@@ -287,11 +304,11 @@ async function mergeArray(start, end) {
 // main mergeSort function
 async function mergeSort(start, end) {
     if (start < end) {
-        let mid = parseInt((start + end) >> 1)
-        await mergeSort(start, mid)
-        await mergeSort(mid + 1, end)
-        await mergeArray(start, end)
-        await timer(0)
+        let mid = parseInt((start + end) >> 1);
+        await mergeSort(start, mid);
+        await mergeSort(mid + 1, end);
+        await mergeArray(start, end);
+        await timer(speed);
         renderColouredBars(start, mid, end, RED, RED, RED);
     }
 }
