@@ -112,11 +112,11 @@ $("#sortingSpeed").on("change", () => {
     speed = $("#sortingSpeed").attr("max") - $("#sortingSpeed").val();
     if (speed === 100) {
         $("#speedLabel").text("Slowest");
-    } else if (speed < 100 && speed > 80) {
+    } else if (speed < 100 && speed > 70) {
         $("#speedLabel").text("Slow");
-    } else if (speed <= 80 && speed > 40) {
+    } else if (speed <= 70 && speed > 30) {
         $("#speedLabel").text("Medium");
-    } else if (speed <= 40 && speed > 0) {
+    } else if (speed <= 30 && speed > 0) {
         $("#speedLabel").text("Fast");
     } else if (speed === 0) {
         $("#speedLabel").text("Fastest");
