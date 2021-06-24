@@ -12,7 +12,8 @@ body {
     background-color: seagreen;
     text-align: center;
     position: relative;
-    width: 100%;;
+    width: 100%;
+    ;
 }
 
 h1#title {
@@ -34,6 +35,19 @@ h1#title {
     justify-content: center;
 }
 
+.firstThree {
+    width: 66%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.lastTwo {
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
 
 .barsContainer {
     width: 100%;
@@ -96,16 +110,48 @@ div.footer {
     padding-bottom: 10px;
 }
 
-
-@media Screen and (max-width: 911px) {
+@media screen and (max-width: 1391px) {
     .optionsContainer {
         flex-direction: column;
     }
+    .firstThree {
+        width: 100%;
+    }
+    .lastTwo {
+        margin: 30px auto 0;
+        width: 70%;
+    }
+}
 
+@media Screen and (max-width: 918px) {
+    .firstThree {
+        flex-direction: column;
+    }
+    .lastTwo {
+        margin-top: 0;
+        flex-direction: column;
+    }
     .btn {
         margin-top: 10px;
         margin-bottom: 20px;
     }
 
+    #sortBtn {
+        margin-top: 20px;
+    }
 }
 
+@media Screen and (max-width: 379px) {
+    .slider {
+        width: 170px;
+    }
+}
+
+@media Screen and (max-width: 349px) {
+    h1#title {
+        font-size: 3rem;
+    }
+    .slider {
+        width: 135px;
+    }
+}

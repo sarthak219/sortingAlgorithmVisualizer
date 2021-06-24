@@ -107,7 +107,7 @@ $("#barCount").on("change", () => {
     displayRandomBars();
 });
 
-// changes the number of bars according to the given input
+// changes the speed according to the given input
 $("#sortingSpeed").on("change", () => {
     speed = $("#sortingSpeed").attr("max") - $("#sortingSpeed").val();
     if (speed === 100) {
