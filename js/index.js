@@ -95,6 +95,9 @@ $("#sortBtn").on("click", () => {
         case "merge":
             mergeSortWithAnimation();
             break;
+        case "quick":
+            quickSortWithAnimation();
+            break;
         default: alert("Please select a sorting option");
     }
 });
@@ -128,7 +131,7 @@ function updateSlider() {
     if (deviceWidth < 912) {
         setBarRanges(50, 20, 100);
     } else {
-        setBarRanges(100, 50, 200);
+        setBarRanges(100, 50, 300);
     }
     $("#barCount").attr("value", numBars);
     $("#numBarLabel").text($("#barCount").attr("value"));
@@ -247,62 +250,62 @@ async function selectionSort() {
     animateBars();
 }
 
+// sorts arr in descending order using merge sort
+async function mergeSort(start, end) {
+    // merges 2 the arrays into one sorted array
+    async function mergeArray(start, end) {
+        let mid = parseInt((start + end) >> 1);
+        let start1 = start, start2 = mid + 1
+        let end1 = mid, end2 = end
 
-// merges 2 the arrays into one sorted array
-async function mergeArray(start, end) {
-    let mid = parseInt((start + end) >> 1);
-    let start1 = start, start2 = mid + 1
-    let end1 = mid, end2 = end
+        // Initial index of merged subarray
+        let index = start
 
-    // Initial index of merged subarray
-    let index = start
+        while (start1 <= end1 && start2 <= end2) {
+            if (arr[start1] >= arr[start2]) {
+                itmd[index] = arr[start1]
+                index = index + 1
+                start1 = start1 + 1;
+                await timer(speed);
+                render2RedBars(start1, index);
+            }
+            else if (arr[start1] < arr[start2]) {
+                itmd[index] = arr[start2]
+                index = index + 1
+                start2 = start2 + 1;
+                await timer(speed);
+                render2RedBars(start2, index);
+            }
+        }
 
-    while (start1 <= end1 && start2 <= end2) {
-        if (arr[start1] >= arr[start2]) {
+        // Copy the remaining elements of
+        // arr[], if there are any
+        while (start1 <= end1) {
             itmd[index] = arr[start1]
             index = index + 1
             start1 = start1 + 1;
             await timer(speed);
             render2RedBars(start1, index);
         }
-        else if (arr[start1] < arr[start2]) {
+
+        while (start2 <= end2) {
             itmd[index] = arr[start2]
             index = index + 1
             start2 = start2 + 1;
             await timer(speed);
-            render2RedBars(start2, index);
+            render2RedBars(index, start2);
+        }
+
+        index = start
+        while (index <= end) {
+            arr[index] = itmd[index];
+            index++;
+            await timer(speed);
+            render2RedBars(index, index);
         }
     }
 
-    // Copy the remaining elements of
-    // arr[], if there are any
-    while (start1 <= end1) {
-        itmd[index] = arr[start1]
-        index = index + 1
-        start1 = start1 + 1;
-        await timer(speed);
-        render2RedBars(start1, index);
-    }
-
-    while (start2 <= end2) {
-        itmd[index] = arr[start2]
-        index = index + 1
-        start2 = start2 + 1;
-        await timer(speed);
-        render2RedBars(index, start2);
-    }
-
-    index = start
-    while (index <= end) {
-        arr[index] = itmd[index];
-        index++;
-        await timer(speed);
-        render2RedBars(index, index);
-    }
-}
-
-// main mergeSort function
-async function mergeSort(start, end) {
+    // main mergeSort function
     if (start < end) {
         let mid = parseInt((start + end) >> 1);
         await mergeSort(start, mid);
@@ -317,6 +320,47 @@ async function mergeSort(start, end) {
 // first performs the mergeSort funtion and them animates the bars
 async function mergeSortWithAnimation() {
     await mergeSort(0, arr.length - 1);
+    animateBars();
+}
+
+// sorts arr in descending order using quick sort
+async function quickSort(start = 0, end = arr.length - 1) {
+    // swaps the values at i and j in arr
+    async function swap(i, j) {
+        const t = arr[i];
+        arr[i] = arr[j];
+        arr[j] = t;
+    }
+
+    // moves all elements smaller than the value of the pivot to the left and 
+    // all element of greater value than the pivot to the right of the actual pivot index and
+    // returns the actual pivot index in the sorted array
+    async function pivotFinder(start = 0, end = arr.length - 1) {
+        const pivot = arr[start];
+        let pivotIndx = start;
+        for (let i = start + 1; i <= end; i++) {
+            if (arr[i] > pivot) {
+                pivotIndx++;
+                await swap(pivotIndx, i);
+            }
+            await timer(speed);
+            renderColouredBars(i, pivotIndx, start, RED, GREEN, YELLOW);
+        }
+        await swap(pivotIndx, start);
+        return pivotIndx;
+    }
+
+    // main quick sort logic
+    if (start < end) {
+        const pivot = await pivotFinder(start, end);
+        await quickSort(start, pivot - 1);
+        await quickSort(pivot + 1, end);
+    }
+}
+
+// first performs the quickSort funtion and them animates the bars
+async function quickSortWithAnimation() {
+    await quickSort();
     animateBars();
 }
 
