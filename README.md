@@ -16,8 +16,13 @@ This is a web application that can help you visualize how various sorting algori
 # Screenshots
 - ![random](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/random.png)
 - ![sorted](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/sorted_red.png)
-- ![bubble](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/bubble.png)
-- ![insertion](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/insertion.png)
-- ![selection](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/selection.png)
-- ![merge](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/merge.png)
-- ![quick](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/quick.png)
+- ### Bubble Sort 
+![bubble](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/bubble.png)
+- ### Insertion Sort 
+![insertion](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/insertion.png)
+- ### Selection Sort 
+![selection](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/selection.png)
+- ### Merge Sort 
+![merge](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/merge.png)
+- ### Quick Sort 
+![quick](https://github.com/sarthak219/sortingAlgorithmVisualizer/blob/master/img/quick.png)
